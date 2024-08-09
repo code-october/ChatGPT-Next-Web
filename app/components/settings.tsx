@@ -1002,6 +1002,22 @@ export function Settings() {
                           }}
                         />
                       </ListItem>
+                      {/* 获取可用模型列表功能 */}
+                      <ListItem
+                        title={Locale.Settings.Access.OpenAI.AvailableModels.Title}
+                        subTitle={Locale.Settings.Access.OpenAI.AvailableModels.SubTitle}
+                      >
+                        <IconButton
+                          text={Locale.Settings.Access.OpenAI.AvailableModels.Action}
+                          onClick={async () => {
+                            if (await showConfirm(Locale.Settings.Access.OpenAI.AvailableModels.Confirm)) {
+                              const availableModelsStr = await accessStore.fetchAvailableModels(accessStore.openaiUrl, accessStore.openaiApiKey);
+                              config.update((config) => (config.customModels = availableModelsStr));
+                            }
+                          }}
+                          type="primary"
+                        />
+                      </ListItem>
                     </>
                   )}
                   {accessStore.provider === ServiceProvider.Azure && (

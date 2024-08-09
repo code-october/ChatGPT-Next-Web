@@ -295,6 +295,13 @@ const cn = {
           Title: "接口地址",
           SubTitle: "除默认地址外，必须包含 http(s)://",
         },
+
+        AvailableModels:{
+          Title: "可用模型",
+          SubTitle: "点击获取可用模型列表",
+          Action: "一键提取模型",
+          Confirm: "确认拉取可用模型列表并填入自定义模型名？"
+        },
       },
       Azure: {
         ApiKey: {
