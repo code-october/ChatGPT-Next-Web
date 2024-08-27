@@ -119,7 +119,7 @@ Latex inline: \\(x^2\\)
 Latex block: $$e=mc^2$$
 `;
 
-export const SUMMARIZE_MODEL = "gpt-3.5-turbo";
+export const SUMMARIZE_MODEL = "gpt-4o-mini";
 export const GEMINI_SUMMARIZE_MODEL = "gemini-pro";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
@@ -132,8 +132,8 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-vision-preview": "2023-04",
   // After improvements,
   // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
-  "gemini-pro": "2023-12",
-  "gemini-pro-vision": "2023-12",
+  // "gemini-pro": "2023-12",
+  // "gemini-pro-vision": "2023-12",
 };
 
 const openaiModels = [
@@ -148,6 +148,8 @@ const openaiModels = [
   "gpt-4-turbo-preview",
   "gpt-4o",
   "gpt-4o-2024-05-13",
+  "gpt-4o-mini",
+  "gpt-4o-mini",
   "gpt-4-vision-preview",
   "gpt-4-turbo-2024-04-09"
 ];

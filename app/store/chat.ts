@@ -364,13 +364,13 @@ export const useChatStore = createPersistStore(
         });
 
         var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else if (identifyDefaultClaudeModel(modelConfig.model)) {
-          api = new ClientApi(ModelProvider.Claude);
-        } else {
+        // if (modelConfig.model.startsWith("gemini")) {
+        //   api = new ClientApi(ModelProvider.GeminiPro);
+        // } else if (identifyDefaultClaudeModel(modelConfig.model)) {
+        //   api = new ClientApi(ModelProvider.Claude);
+        // } else {
           api = new ClientApi(ModelProvider.GPT);
-        }
+        // }
 
         // make request
         api.llm.chat({
@@ -548,13 +548,13 @@ export const useChatStore = createPersistStore(
         const modelConfig = session.mask.modelConfig;
 
         var api: ClientApi;
-        if (modelConfig.model.startsWith("gemini")) {
-          api = new ClientApi(ModelProvider.GeminiPro);
-        } else if (identifyDefaultClaudeModel(modelConfig.model)) {
-          api = new ClientApi(ModelProvider.Claude);
-        } else {
+        // if (modelConfig.model.startsWith("gemini")) {
+        //   api = new ClientApi(ModelProvider.GeminiPro);
+        // } else if (identifyDefaultClaudeModel(modelConfig.model)) {
+        //   api = new ClientApi(ModelProvider.Claude);
+        // } else {
           api = new ClientApi(ModelProvider.GPT);
-        }
+        // }
 
         // remove error messages if any
         const messages = session.messages;
