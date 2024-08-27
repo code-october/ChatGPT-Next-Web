@@ -125,7 +125,7 @@ export const useAccessStore = createPersistStore(
       //   return Promise.resolve(DEFAULT_ACCESS_STATE.customModels);
 
       fetchState = 1;
-      return fetch(url+"/v1/models", {
+      return fetch(url.replace(/\/+$/, '') + "/v1/models", {
         method: "get",
         body: null,
         headers: {
