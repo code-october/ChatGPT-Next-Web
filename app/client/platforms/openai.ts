@@ -107,6 +107,45 @@ export class ChatGPTApi implements LLMApi {
       role: v.role,
       content: visionModel ? v.content : getMessageTextContent(v),
     }));
+    // For claude model: roles must alternate between "user" and "assistant" in claude, so add a fake assistant message between two user messages
+    const keys = ["system", "user"];
+    if (options.config.model.includes("claude")){
+      // 新的处理方式
+      // 忽略所有不是 user 或 system 的开头消息
+      while (messages.length > 0 && messages[0].role !== "user" && messages[0].role !== "system") {
+        messages.shift();
+      }
+
+      // 如果第一条消息是 system，确保其后跟着的是 user 消息
+      if (messages[0]?.role === "system") {
+        let index = 1; // 从 system 后的第一条消息开始检查
+        while (index < messages.length && messages[index].role !== "user") {
+          messages.splice(index, 1); // 删除非 user 消息
+        }
+      }
+      // 检查消息的顺序，添加或删除消息以确保 user 和 assistant 交替出现
+      let i = 0;
+      while (i < messages.length) {
+        if (i < messages.length -1 && messages[i].role === messages[i + 1].role) {
+          if (messages[i].role === "user") {
+            // 插入一个含分号的 assistant 消息
+            messages.splice(i + 1, 0, {
+              role: "assistant",
+              content: ";"
+            });
+            i++; // 跳过新插入的 assistant 消息
+          } else if (messages[i].role === "assistant") {
+            // 忽略前一条 assistant 消息
+            messages.splice(i, 1);
+            continue; // 由于数组长度减少，当前索引继续指向下一个待比较的元素
+          }
+        }
+        i++; // 正常移动到下一个元素
+      }
+      while (messages.length > 0 && messages[messages.length - 1].role !== "user") {
+        messages.pop(); // 删除非 user 消息
+      }
+    }
 
     const modelConfig = {
       ...useAppConfig.getState().modelConfig,
